@@ -5,7 +5,7 @@ import team2 from '../../src/assets/banner/smiling-colleagues-office-talking.jpg
 
 const Banner = () => {
   return (
-    <div className="hero min-h-screen flex items-center justify-center text-[#05264e]">
+    <div className="hero min-h-96 flex items-center justify-center text-[#05264e]">
       <div className="hero-content flex-col lg:flex-row-reverse items-center container mx-auto">
 
         <div className="flex-1 flex flex-col items-center space-y-8">
