@@ -41,7 +41,6 @@ const Register = () => {
 
     creatUser(email, password)
       .then((result) => {
-        console.log(result);
         Swal.fire({
           title: 'Success!',
           text: 'Account created successfully!',
@@ -55,13 +54,13 @@ const Register = () => {
           title: 'Error!',
           text: 'Failed to create account!',
           icon: 'error',
-          confirmButtonText: 'Try Again',
+          confirmButtonText: 'Something Went Wrong',
         });
       });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg max-w-4xl w-full">
         <div className="md:w-1/2 flex items-center justify-center p-4">
           <Lottie
