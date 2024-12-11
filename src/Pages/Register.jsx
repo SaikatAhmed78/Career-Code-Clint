@@ -1,9 +1,11 @@
+import React, { useContext } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaImage } from 'react-icons/fa';
 import Lottie from 'lottie-react';
 import animationData from '../../src/assets/lottie/register - 1733913622717.json';
-import { useContext } from 'react';
 import AuthContext from '../Contexts/AuthContext';
 import Swal from 'sweetalert2';
+import SocialLogin from '../Common/SocialLogin';
+
 
 const Register = () => {
   const { creatUser } = useContext(AuthContext);
@@ -16,7 +18,6 @@ const Register = () => {
     const password = form.password.value;
     const photoUrl = form.photoUrl.value;
 
-
     if (!name || !email || !password) {
       Swal.fire({
         title: 'Error!',
@@ -26,7 +27,6 @@ const Register = () => {
       });
       return;
     }
-
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
@@ -48,15 +48,7 @@ const Register = () => {
           confirmButtonText: 'OK',
         });
       })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to create account!',
-          icon: 'error',
-          confirmButtonText: 'Something Went Wrong',
-        });
-      });
+    
   };
 
   return (
@@ -111,6 +103,7 @@ const Register = () => {
                 className="pl-10 pr-4 py-3 w-full border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
+            
             <button
               type="submit"
               className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300"
@@ -118,6 +111,9 @@ const Register = () => {
               Register
             </button>
           </form>
+          <div className="mt-6">
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>

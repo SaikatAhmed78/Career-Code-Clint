@@ -4,6 +4,7 @@ import animationData from '../../src/assets/lottie/signin - 1733926268989.json';
 import { useContext } from 'react';
 import AuthContext from '../Contexts/AuthContext';
 import Swal from 'sweetalert2';
+import SocialLogin from '../Common/SocialLogin';
 
 const Signin = () => {
   const { signInUser } = useContext(AuthContext);
@@ -84,6 +85,9 @@ const Signin = () => {
               Sign In
             </button>
           </form>
+          <div className="mt-6">
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>

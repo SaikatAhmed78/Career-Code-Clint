@@ -18,7 +18,6 @@ const Navbar = () => {
   const handleSignOut = async () => {
     try {
       await signoutUser();
-      console.log('Sign out successfully');
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +73,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
+    <div className="navbar rounded-sm p-5 bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
