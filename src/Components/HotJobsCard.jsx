@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdWork, MdLocationOn, MdAttachMoney } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const HotJobsCard = ({ job }) => {
   return (
@@ -36,9 +37,12 @@ const HotJobsCard = ({ job }) => {
         <span className="text-indigo-600 font-bold text-lg flex items-center gap-1">
           <MdAttachMoney className="text-indigo-600" /> {job.salaryRange.currency.toUpperCase()} {job.salaryRange.min} - {job.salaryRange.max}
         </span>
+        
+        <Link to={`/jobs/${job._id}`}>
         <button className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">
-          Apply Now
+         Details
         </button>
+        </Link>
       </div>
     </div>
   );
