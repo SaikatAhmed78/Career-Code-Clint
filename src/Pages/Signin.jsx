@@ -5,9 +5,13 @@ import { useContext } from 'react';
 import AuthContext from '../Contexts/AuthContext';
 import Swal from 'sweetalert2';
 import SocialLogin from '../Common/SocialLogin';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Signin = () => {
   const { signInUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state || '/'
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -32,7 +36,8 @@ const Signin = () => {
           text: 'Signed in successfully!',
           icon: 'success',
           confirmButtonText: 'OK',
-        });
+        })
+        navigate(from)
       })
       .catch((error) => {
         Swal.fire({
