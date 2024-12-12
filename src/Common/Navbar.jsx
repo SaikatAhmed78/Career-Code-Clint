@@ -27,6 +27,15 @@ const Navbar = () => {
     <>
       <li>
         <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? 'text-yellow-300 flex items-center space-x-2' : 'flex items-center space-x-2 hover:text-yellow-300 transition duration-300'
+          }
+        >
+          <FaBriefcase />
+          <span>Home</span>
+        </NavLink>
+        {/* <NavLink
           to="/jobs"
           className={({ isActive }) =>
             isActive ? 'text-yellow-300 flex items-center space-x-2' : 'flex items-center space-x-2 hover:text-yellow-300 transition duration-300'
@@ -34,11 +43,11 @@ const Navbar = () => {
         >
           <FaBriefcase />
           <span>Jobs</span>
-        </NavLink>
+        </NavLink> */}
       </li>
       <li>
         <NavLink
-          to="/add-jobs"
+          to="/postJob"
           className={({ isActive }) =>
             isActive ? 'text-yellow-300 flex items-center space-x-2' : 'flex items-center space-x-2 hover:text-yellow-300 transition duration-300'
           }
@@ -73,7 +82,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar rounded-sm p-5 bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
+    <div className="navbar rounded-sm  bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
