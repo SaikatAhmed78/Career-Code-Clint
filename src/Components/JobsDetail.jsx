@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { MdWork, MdLocationOn, MdAttachMoney, MdCalendarToday } from 'react-icons/md';
 
 const JobsDetail = () => {
@@ -64,9 +64,11 @@ const JobsDetail = () => {
       </main>
 
       <footer className="mt-8 flex justify-center">
-        <button className="bg-indigo-600 text-white font-semibold text-lg py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg">
+      <Link to={`/jobApply/${job._id}`}>
+      <button className="bg-indigo-600 text-white font-semibold text-lg py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg">
           Apply Now
         </button>
+      </Link>
       </footer>
     </div>
   );
