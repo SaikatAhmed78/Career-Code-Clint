@@ -49,7 +49,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/application/me"
+          to="/myApplications"
           className={({ isActive }) =>
             isActive ? 'text-yellow-300 flex items-center space-x-2' : 'flex items-center space-x-2 hover:text-yellow-300 transition duration-300'
           }
