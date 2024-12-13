@@ -2,7 +2,7 @@ import React from "react";
 import Lottie from "lottie-react";
 import Swal from "sweetalert2";
 import postJobAnimation from "../../src/assets/lottie/post-job - 1734029370873.json";
-import { FiBriefcase, FiMapPin, FiDollarSign } from "react-icons/fi";
+import { FiBriefcase, FiMapPin, FiDollarSign, FiCalendar } from "react-icons/fi";
 
 const PostJob = () => {
   
@@ -12,8 +12,7 @@ const PostJob = () => {
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
   
-
-    const { title, company, location, jobType, jobField, minSalary, maxSalary, description, responsibilities, hrName, hrEmail } = initialData;
+    const { title, company, location, jobType, jobField, minSalary, maxSalary, description, responsibilities, hrName, hrEmail, applicationDeadline } = initialData;
   
     if (
       !title ||
@@ -26,7 +25,8 @@ const PostJob = () => {
       !description ||
       !responsibilities ||
       !hrName ||
-      !hrEmail
+      !hrEmail ||
+      !applicationDeadline
     ) {
       Swal.fire({
         title: "Error!",
@@ -48,6 +48,7 @@ const PostJob = () => {
       },
       description: description.split("\n").map((item) => item.trim()),
       responsibilities: responsibilities.split("\n").map((item) => item.trim()),
+      applicationDeadline,
     };
   
     fetch("http://localhost:5000/jobs", {
@@ -168,6 +169,21 @@ const PostJob = () => {
           </div>
 
           <div className="relative col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Application Deadline</label>
+            <div className="relative">
+              <span className="absolute left-3 top-3 text-indigo-500 text-lg">
+                <FiCalendar />
+              </span>
+              <input
+                id="applicationDeadline"
+                name="applicationDeadline"
+                type="date"
+                className="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div className="relative col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">Job Requirements</label>
             <textarea
               id="description"
@@ -211,23 +227,14 @@ const PostJob = () => {
             />
           </div>
 
-          <div className="relative col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Company Logo</label>
-            <input
-              id="companyLogo"
-              name="companyLogo"
-              type="url"
-              placeholder="Company Logo URL"
-              className="w-full py-3 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+          <div className="col-span-2 text-center">
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-600 transition duration-200"
+            >
+              Post Job
+            </button>
           </div>
-
-          <button
-            type="submit"
-            className="col-span-2 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium text-lg rounded-lg shadow-lg hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-          >
-            Post Job
-          </button>
         </form>
       </div>
     </div>
