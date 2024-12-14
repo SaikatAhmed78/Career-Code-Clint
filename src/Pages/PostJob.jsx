@@ -3,9 +3,12 @@ import Lottie from "lottie-react";
 import Swal from "sweetalert2";
 import postJobAnimation from "../../src/assets/lottie/post-job - 1734029370873.json";
 import { FiBriefcase, FiMapPin, FiDollarSign, FiCalendar } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const PostJob = () => {
   
+  const navigate = useNavigate();
+
   const handlePostJob = (e) => {
     e.preventDefault();
   
@@ -67,7 +70,7 @@ const PostJob = () => {
             icon: "success",
             confirmButtonText: "OK",
           });
-          e.target.reset();
+          navigate('/MyJobPosts')
         } else {
           Swal.fire({
             title: "Error!",
