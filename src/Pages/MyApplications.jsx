@@ -47,7 +47,6 @@ const MyApplications = () => {
         });
     };
 
-    console.log(jobs);
 
     return (
         <div className="container mx-auto p-6 bg-gradient-to-r from-blue-100 to-purple-200 rounded-lg shadow-lg">
