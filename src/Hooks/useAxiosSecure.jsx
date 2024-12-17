@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://career-code.vercel.app',
   withCredentials: true,
 });
 
 const useAxiosSecure = () => {
+
   const { signoutUser } = useAuth();
   const navigate = useNavigate();
 

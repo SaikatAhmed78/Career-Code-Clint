@@ -34,9 +34,8 @@ const Signin = () => {
       .then((result) => {
 
         const user = {email: email};
-        axios.post('http://localhost:5000/jwt', user)
+        axios.post('https://career-code.vercel.app/jwt', user)
         .then(data => {
-          console.log(data)
         })
 
         Swal.fire({

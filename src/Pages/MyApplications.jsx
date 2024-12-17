@@ -28,7 +28,7 @@ const MyApplications = () => {
             cancelButtonText: 'No, cancel!',
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/job-application/${id}`, {
+                fetch(`https://career-code.vercel.app/job-application/${id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())

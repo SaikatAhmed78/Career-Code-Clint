@@ -24,7 +24,7 @@ const router = createBrowserRouter([
             {
                 path: '/jobs/:id',
                 element: <PrivateRoute><JobsDetail></JobsDetail></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/jobs/${params.id}`)
+                loader: ({params}) => fetch(`https://career-code.vercel.app/jobs/${params.id}`)
             },
             {
                 path: '/jobApply/:id',

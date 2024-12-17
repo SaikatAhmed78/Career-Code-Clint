@@ -6,7 +6,7 @@ const MyJobPosts = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my-jobs?email=${user.email}`)
+    fetch(`https://career-code.vercel.app/my-jobs?email=${user.email}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to fetch jobs data');

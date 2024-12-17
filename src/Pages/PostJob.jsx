@@ -49,7 +49,7 @@ import AuthContext from "../Contexts/AuthContext";
         responsibilities: responsibilities.split("\n").map((item) => item.trim()),
       };
   
-      fetch("http://localhost:5000/jobs", {
+      fetch("https://career-code.vercel.app/jobs", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(jobData),
@@ -75,7 +75,6 @@ import AuthContext from "../Contexts/AuthContext";
         });
     };
   
-   console.log(user)
 
 
   return (
