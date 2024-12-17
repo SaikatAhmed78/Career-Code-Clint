@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { FaTrashAlt } from 'react-icons/fa';
 import useAuth from '../Hooks/UseAuth';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const MyApplications = () => {
     const { user } = useAuth();
     const [jobs, setJobs] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/job-application?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => setJobs(data));
+
+        axiosSecure.get(`/job-application?email=${user.email}`)
+        .then(res => setJobs(res.data))
+        
     }, [user.email]);
+
+
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -42,6 +47,8 @@ const MyApplications = () => {
         });
     };
 
+    console.log(jobs);
+
     return (
         <div className="container mx-auto p-6 bg-gradient-to-r from-blue-100 to-purple-200 rounded-lg shadow-lg">
             <h1 className="text-3xl font-extrabold mb-6 text-center text-gray-800">My Job Applications</h1>
@@ -64,11 +71,15 @@ const MyApplications = () => {
                                     <td className="border px-6 py-3 text-gray-800 font-semibold">{job.title}</td>
                                     <td className="border px-6 py-3 text-gray-800">{job.company}</td>
                                     <td className="border px-6 py-3 text-center">
-                                        <img 
-                                            src={job.company_logo} 
-                                            alt={`${job.company} logo`} 
-                                            className="h-12 w-12 mx-auto rounded-full border border-gray-300"
-                                        />
+                                        {job.companyLogo ? (
+                                            <img 
+                                                src={job.companyLogo} 
+                                                alt={`${job.company} logo`} 
+                                                className="h-12 w-12 mx-auto rounded-full border border-gray-300"
+                                            />
+                                        ) : (
+                                            <span className="text-gray-500">No Logo</span>
+                                        )}
                                     </td>
                                     <td className="border px-6 py-3 text-center">
                                         <button

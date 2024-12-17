@@ -1,86 +1,82 @@
-import React from "react";
+import React, { useContext } from "react";
 import Lottie from "lottie-react";
 import Swal from "sweetalert2";
 import postJobAnimation from "../../src/assets/lottie/post-job - 1734029370873.json";
 import { FiBriefcase, FiMapPin, FiDollarSign, FiCalendar } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../Contexts/AuthContext";
 
-const PostJob = () => {
-  
-  const navigate = useNavigate();
 
-  const handlePostJob = (e) => {
-    e.preventDefault();
   
-    const formData = new FormData(e.target);
-    const initialData = Object.fromEntries(formData.entries());
+  const PostJob = () => {
+    const navigate = useNavigate();
+    const {user } = useContext(AuthContext)
   
-    const { title, company, location, jobType, jobField, minSalary, maxSalary, description, responsibilities, hrName, hrEmail, applicationDeadline } = initialData;
+    const handlePostJob = (e) => {
+      e.preventDefault();
   
-    if (
-      !title ||
-      !company ||
-      !location ||
-      !jobType ||
-      !jobField ||
-      !minSalary ||
-      !maxSalary ||
-      !description ||
-      !responsibilities ||
-      !hrName ||
-      !hrEmail ||
-      !applicationDeadline
-    ) {
-      Swal.fire({
-        title: "Error!",
-        text: "All fields are required. Please fill out the form properly.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-      return;
-    }
+      const formData = new FormData(e.target);
+      const initialData = Object.fromEntries(formData.entries());
   
-    const { currency, ...newJob } = initialData;
+      const {
+        title, company, location, jobType, jobField,
+        minSalary, maxSalary, description, responsibilities,
+       applicationDeadline, companyLogo
+      } = initialData;
   
-    const jobData = {
-      ...newJob,
-      salaryRange: {
-        min: minSalary,
-        max: maxSalary,
-        currency,
-      },
-      description: description.split("\n").map((item) => item.trim()),
-      responsibilities: responsibilities.split("\n").map((item) => item.trim()),
-      applicationDeadline,
+      if (!title || !company || !location || !jobType || !jobField ||
+        !minSalary || !maxSalary || !description || !responsibilities ||
+        !applicationDeadline || !companyLogo) {
+        Swal.fire({
+          title: "Error!",
+          text: "All fields are required.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        return;
+      }
+  
+      const jobData = {
+        ...initialData,
+        salaryRange: {
+          min: minSalary,
+          max: maxSalary,
+          currency: formData.get('currency'),
+        },
+        description: description.split("\n").map((item) => item.trim()),
+        hr_name : user.displayName,
+        hr_email : user.email,
+        responsibilities: responsibilities.split("\n").map((item) => item.trim()),
+      };
+  
+      fetch("http://localhost:5000/jobs", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(jobData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            Swal.fire({
+              title: "Success!",
+              text: "Job has been posted successfully.",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+            navigate('/MyJobPosts');
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to post job. Please try again.",
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          }
+        });
     };
   
-    fetch("http://localhost:5000/jobs", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(jobData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Job has been posted successfully.",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-          navigate('/MyJobPosts')
-        } else {
-          Swal.fire({
-            title: "Error!",
-            text: "Failed to post job. Please try again.",
-            icon: "error",
-            confirmButtonText: "OK",
-          });
-        }
-      });
-  };
+   console.log(user)
+
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gray-100">
@@ -96,8 +92,8 @@ const PostJob = () => {
 
         <form onSubmit={handlePostJob} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {[{ id: "title", placeholder: "Job Title", icon: <FiBriefcase /> },
-            { id: "company", placeholder: "Company Name", icon: <FiBriefcase /> },
-            { id: "location", placeholder: "Location", icon: <FiMapPin /> },
+          { id: "company", placeholder: "Company Name", icon: <FiBriefcase /> },
+          { id: "location", placeholder: "Location", icon: <FiMapPin /> },
           ].map(({ id, placeholder, icon }) => (
             <div key={id} className="relative col-span-1">
               <span className="absolute left-3 top-3 text-indigo-500 text-lg">{icon}</span>
@@ -138,6 +134,16 @@ const PostJob = () => {
               <option value="Sales">Sales</option>
               <option value="Customer Service">Customer Service</option>
             </select>
+          </div>
+          <div className="relative col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Company Logo URL</label>
+            <input
+              id="companyLogo"
+              name="companyLogo"
+              type="url"
+              placeholder="Enter Company Logo URL"
+              className="w-full py-3 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
           </div>
 
           <div className="relative col-span-2">
@@ -213,6 +219,8 @@ const PostJob = () => {
             <input
               id="hrName"
               name="hrName"
+              defaultValue={user?.displayName}
+              disabled
               type="text"
               placeholder="HR Name"
               className="w-full py-3 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -224,6 +232,7 @@ const PostJob = () => {
             <input
               id="hrEmail"
               name="hrEmail"
+              defaultValue={user?.email}
               type="email"
               placeholder="HR Email"
               className="w-full py-3 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"

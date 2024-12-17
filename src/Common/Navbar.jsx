@@ -1,15 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  FaSignInAlt,
-  FaUserPlus,
-  FaBriefcase,
-  FaPlusCircle,
-  FaListAlt,
-  FaUserCircle,
-  FaSignOutAlt,
-} from 'react-icons/fa';
-import logo from '../../src/assets/logo/a logo for a job portal system.png';
+import {FaSignInAlt,FaUserPlus,FaBriefcase,FaPlusCircle,FaListAlt,FaUserCircle, FaSignOutAlt,} from 'react-icons/fa';
+import logo from '../../src/assets/logo/download.jpg';
 import AuthContext from '../Contexts/AuthContext';
 
 const Navbar = () => {
@@ -35,6 +27,7 @@ const Navbar = () => {
           <FaBriefcase />
           <span>Home</span>
         </NavLink>
+
         {/* <NavLink
           to="/jobs"
           className={({ isActive }) =>
@@ -44,6 +37,7 @@ const Navbar = () => {
           <FaBriefcase />
           <span>Jobs</span>
         </NavLink> */}
+        
       </li>
       <li>
         <NavLink

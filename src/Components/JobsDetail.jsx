@@ -13,7 +13,7 @@ const JobsDetail = () => {
     <div className="max-w-5xl mx-auto bg-gradient-to-br from-indigo-50 to-white p-8 rounded-lg shadow-xl my-10 transition-all duration-500 hover:shadow-2xl">
       <header className="flex items-center gap-6 border-b pb-6 mb-6">
         <img 
-          src={job.company_logo} 
+          src={job.companyLogo} 
           alt={job.company} 
           className="w-24 h-24 rounded-full border-4 border-indigo-600 object-cover"
         />
@@ -56,7 +56,7 @@ const JobsDetail = () => {
         <section>
           <h2 className="text-2xl font-semibold text-indigo-700">Requirements</h2>
           <ul className="list-disc pl-5 mt-3 space-y-2">
-            {job.requirements.map((requirement, index) => (
+            {job.responsibilities?.map((requirement, index) => (
               <li key={index} className="text-gray-700 text-lg">{requirement}</li>
             ))}
           </ul>
