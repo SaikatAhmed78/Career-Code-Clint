@@ -1,6 +1,15 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import {FaSignInAlt,FaUserPlus,FaBriefcase,FaPlusCircle,FaListAlt,FaUserCircle, FaSignOutAlt,} from 'react-icons/fa';
+import { 
+  FaSignInAlt,
+  FaUserPlus,
+  FaBriefcase,
+  FaPlusCircle,
+  FaListAlt,
+  FaUserCircle, 
+  FaSignOutAlt,
+  FaHome
+} from 'react-icons/fa';
 import logo from '../../src/assets/logo/download.jpg';
 import AuthContext from '../Contexts/AuthContext';
 
@@ -17,29 +26,29 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li>
+      <li className="my-2 lg:my-0">
         <NavLink
           to="/"
           className={({ isActive }) =>
             isActive ? 'text-yellow-300 flex items-center space-x-2' : 'flex items-center space-x-2 hover:text-yellow-300 transition duration-300'
           }
         >
-          <FaBriefcase />
+          <FaHome />
           <span>Home</span>
         </NavLink>
-
-        {/* <NavLink
-          to="/jobs"
+      </li>
+      <li className="my-2 lg:my-0">
+        <NavLink
+          to="/allJobs"
           className={({ isActive }) =>
             isActive ? 'text-yellow-300 flex items-center space-x-2' : 'flex items-center space-x-2 hover:text-yellow-300 transition duration-300'
           }
         >
           <FaBriefcase />
           <span>Jobs</span>
-        </NavLink> */}
-        
+        </NavLink>
       </li>
-      <li>
+      <li className="my-2 lg:my-0">
         <NavLink
           to="/postJob"
           className={({ isActive }) =>
@@ -50,7 +59,7 @@ const Navbar = () => {
           <span>Post a Job</span>
         </NavLink>
       </li>
-      <li>
+      <li className="my-2 lg:my-0">
         <NavLink
           to="/myApplications"
           className={({ isActive }) =>
@@ -61,7 +70,7 @@ const Navbar = () => {
           <span>My Applications</span>
         </NavLink>
       </li>
-      <li>
+      <li className="my-2 lg:my-0">
         <NavLink
           to="/myJobPosts"
           className={({ isActive }) =>
@@ -76,7 +85,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar rounded-sm  bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
+    <div className="navbar bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -106,9 +115,9 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-2 btn btn-ghost normal-case text-2xl font-bold"
         >
-          <img src={logo} alt="CareerCode Logo" className="w-10 h-10 rounded-full" />
+          <img src={logo} alt="Volunteer Management Logo" className="w-10 h-10 rounded-full" />
           <span className="hidden lg:inline-flex text-3xl font-extrabold tracking-tight">
-            Career<span className="text-yellow-300">Code</span>
+            Volunteer<span className="text-yellow-300">Hub</span>
           </span>
         </NavLink>
       </div>
@@ -117,13 +126,25 @@ const Navbar = () => {
       </div>
       <div className="navbar-end space-x-4">
         {user ? (
-          <button
-            onClick={handleSignOut}
-            className="btn bg-white text-blue-600 hover:bg-gray-200 flex items-center space-x-2"
-          >
-            <FaSignOutAlt />
-            <span>Logout</span>
-          </button>
+          <div className="flex items-center space-x-4">
+            <div className="relative group">
+              <img
+                src={user.photoURL}
+                alt={user.displayName}
+                className="w-10 h-10 rounded-full border-2 border-white"
+              />
+              <div className="absolute hidden group-hover:block bg-white text-blue-600 rounded-lg p-2 shadow-lg z-10">
+                {user.displayName}
+              </div>
+            </div>
+            <button
+              onClick={handleSignOut}
+              className="btn bg-white text-blue-600 hover:bg-gray-200 flex items-center space-x-2"
+            >
+              <FaSignOutAlt />
+              <span>Logout</span>
+            </button>
+          </div>
         ) : (
           <>
             <NavLink
