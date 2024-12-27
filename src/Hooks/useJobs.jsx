@@ -1,20 +1,31 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const useJobs = () => {
-
+const useJobs = (sort, search) => {
     const [jobs, setJobs] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/jobs')
-        .then(res => {
-            setLoading(false)
-            setJobs(res.data)
-        })
-    }, [])
+        const fetchJobs = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/jobs`, {
+                    params: {
+                        sort,
+                        title: search
+                    }
+                });
+                setJobs(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching jobs:', error);
+                setLoading(false);
+            }
+        };
 
-    return {jobs, loading}
+        fetchJobs();
+    }, [sort, search]);
+
+    return { jobs, loading };
 };
 
 export default useJobs;
